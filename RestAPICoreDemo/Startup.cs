@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RestAPICoreDemo.Service;
-
+ 
 namespace RestAPICoreDemo
 {
     public class Startup
@@ -15,9 +15,9 @@ namespace RestAPICoreDemo
         {
             Configuration = configuration;
         }
-
+ 
         public IConfiguration Configuration { get; }
-
+ 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -33,26 +33,27 @@ namespace RestAPICoreDemo
                 });
             });
             services.AddControllers();
-            services.AddDbContextPool<EmployeeContext>(options =>
+            services.AddDbContext<EmployeeContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("EmployeeDBContextConnectionString")));
             services.AddScoped<IEmployeeService, EmployeeService>();
         }
-
+ 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, EmployeeContext dataContext)
         {
+            dataContext.Database.EnsureCreated();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
             app.UseCors(_allowedSpecificOrigins);
+ 
             
-
+            
             app.UseRouting();
-
-
+ 
             app.UseAuthorization();
-
+ 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
