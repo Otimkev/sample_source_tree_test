@@ -21,7 +21,7 @@ namespace RestAPICoreDemo.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        [Route("api/Employee/GetEmployees")]
+        [Route("api/Employee/GetEmployee")]
         public IEnumerable<Employee> GetEmployees()
         {
             return _employeeService.GetEmployees();

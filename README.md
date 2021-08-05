@@ -1,2 +1,2 @@
 # dotnet-template-project
-This is a sample project presentation project to demonstrate understanding of the dotnet ecosystem
+This is a sample project presentation project to demonstrate understanding of the dotnet ecosystem and so much more
